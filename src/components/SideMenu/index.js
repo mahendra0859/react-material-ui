@@ -14,7 +14,6 @@ const useStyles = makeStyles({
 
 const SideMenu = () => {
   const classes = useStyles();
-  console.log('classes', classes);
   return <div className={classes.sideMenu}>SideMenu</div>;
 };
 

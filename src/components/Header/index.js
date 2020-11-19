@@ -46,7 +46,7 @@ const Header = () => {
             <InputBase
               placeholder='Search topics'
               className={classes.searchInput}
-              startAdornment={<SearchIcon fontSize='sm' />}
+              startAdornment={<SearchIcon fontSize='small' />}
             />
           </Grid>
           <Grid item sm></Grid>
@@ -59,16 +59,16 @@ const Header = () => {
               classes={{ root: classes.btnRoot, label: classes.btnLabel }}
             >
               <Badge badgeContent={4} color='secondary'>
-                <NotificationsNoneIcon />
+                <NotificationsNoneIcon fontSize='small' />
               </Badge>
             </IconButton>
             <IconButton>
               <Badge badgeContent={4} color='primary'>
-                <ChatBubbleOutlineIcon />
+                <ChatBubbleOutlineIcon fontSize='small' />
               </Badge>
             </IconButton>
             <IconButton>
-              <PowerSettingsNewIcon />
+              <PowerSettingsNewIcon fontSize='small' />
             </IconButton>
           </Grid>
         </Grid>

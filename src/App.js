@@ -5,8 +5,8 @@ import {
   ThemeProvider,
 } from '@material-ui/core';
 import './App.css';
-import { SideMenu, Header, PageHeader } from './components';
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import { SideMenu, Header } from './components';
+import Employees from './pages/Employees/Employees';
 
 const theme = createMuiTheme({
   palette: {
@@ -22,9 +22,9 @@ const theme = createMuiTheme({
       default: '#f4f5fd',
     },
   },
-  shape: {
-    borderRadius: '12px',
-  },
+  // shape: {
+  //   borderRadius: '12px',
+  // },
   overrides: {
     MuiAppBar: {
       root: {
@@ -53,11 +53,8 @@ function App() {
       <SideMenu />
       <div className={classes.appMain}>
         <Header />
-        <PageHeader
-          title='Page Header'
-          subTitle='Page Description'
-          icon={<PeopleOutlineIcon fontSize='large' />}
-        />
+
+        <Employees />
       </div>
       <CssBaseline />
     </ThemeProvider>
