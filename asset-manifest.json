@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-material-ui/static/css/main.e821f4e5.chunk.css",
-    "main.js": "/react-material-ui/static/js/main.f57cfcb6.chunk.js",
-    "main.js.map": "/react-material-ui/static/js/main.f57cfcb6.chunk.js.map",
+    "main.js": "/react-material-ui/static/js/main.c2da82bd.chunk.js",
+    "main.js.map": "/react-material-ui/static/js/main.c2da82bd.chunk.js.map",
     "runtime-main.js": "/react-material-ui/static/js/runtime-main.49eb680e.js",
     "runtime-main.js.map": "/react-material-ui/static/js/runtime-main.49eb680e.js.map",
     "static/js/2.7273c84d.chunk.js": "/react-material-ui/static/js/2.7273c84d.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.49eb680e.js",
     "static/js/2.7273c84d.chunk.js",
     "static/css/main.e821f4e5.chunk.css",
-    "static/js/main.f57cfcb6.chunk.js"
+    "static/js/main.c2da82bd.chunk.js"
   ]
 }
