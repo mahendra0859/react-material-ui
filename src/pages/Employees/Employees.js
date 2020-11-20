@@ -44,6 +44,83 @@ const Employees = () => {
     recordsAfterPagingAndSorting,
   } = useTable(records, headCells, filterFn);
 
+  useState(() => {
+    localStorage.clear();
+    localStorage.setItem('employeeId', '6');
+    localStorage.setItem(
+      'employees',
+      JSON.stringify([
+        {
+          id: 1,
+          fullName: 'Mahendra AR',
+          email: 'mahendra@bellabona.com',
+          mobile: '8105693159',
+          city: 'Bengaluru',
+          gender: 'male',
+          departmentId: '1',
+          hireDate: '2020-11-20T01:31:09.992Z',
+          isPermanent: true,
+        },
+        {
+          id: 2,
+          fullName: 'Raj',
+          email: 'raj@bellabona.com',
+          mobile: '1234567890',
+          city: 'Mumbai',
+          gender: 'male',
+          departmentId: '1',
+          hireDate: '2020-11-20T01:31:09.992Z',
+          isPermanent: true,
+        },
+        {
+          id: 3,
+          fullName: 'Rineesh',
+          email: 'rinessh@bellabona.com',
+          mobile: '1234567890',
+          city: 'Kochi',
+          gender: 'male',
+          departmentId: '1',
+          hireDate: '2020-11-20T01:31:09.992Z',
+          isPermanent: true,
+        },
+        {
+          id: 4,
+          fullName: 'Gaurav',
+          email: 'gaurav@bellabona.com',
+          mobile: '1234567890',
+          city: 'Bengaluru',
+          gender: 'male',
+          departmentId: '1',
+          hireDate: '2020-11-20T01:31:09.992Z',
+          isPermanent: true,
+        },
+        {
+          id: 5,
+          fullName: 'Mehul',
+          email: 'mehul@bellabona.com',
+          mobile: '1234567890',
+          city: 'Mumbai',
+          gender: 'male',
+          departmentId: '1',
+          hireDate: '2020-11-20T01:31:09.992Z',
+          isPermanent: true,
+        },
+        {
+          id: 6,
+          fullName: 'Tushar',
+          email: 'tushar@bellabona.com',
+          mobile: '1234567890',
+          city: 'Kochi',
+          gender: 'male',
+          departmentId: '1',
+          hireDate: '2020-11-20T01:31:09.992Z',
+          isPermanent: true,
+        },
+      ])
+    );
+    setRecords(EmployeeService.getAllEmployees());
+  }, []);
+
   const handleSearch = (e) => {
     let target = e.target;
     setFilterFn({
