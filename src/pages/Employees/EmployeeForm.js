@@ -2,6 +2,7 @@ import { Grid } from '@material-ui/core';
 import { useForm, Form } from '../../components/useForm';
 import Controls from '../../components/controls/Controls';
 import * as employeeService from '../../services/employeeService';
+import { useEffect } from 'react';
 
 const initialFormValue = {
   id: 0,
@@ -15,7 +16,7 @@ const initialFormValue = {
   isPermanent: false,
 };
 
-const EmployeeForm = () => {
+const EmployeeForm = ({ addOrEdit, recordForEdit }) => {
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     if ('fullName' in fieldValues) {
@@ -43,19 +44,27 @@ const EmployeeForm = () => {
       return Object.values(temp).every((x) => x === '');
     }
   };
-  const { values, handleInputChange, errors, setErrors, resetForm } = useForm(
-    initialFormValue,
-    true,
-    validate
-  );
+  const {
+    values,
+    handleInputChange,
+    errors,
+    setErrors,
+    resetForm,
+    setValues,
+  } = useForm(initialFormValue, true, validate);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      employeeService.insertEmployee(values);
-      resetForm();
+      addOrEdit(values, resetForm);
     }
   };
+
+  useEffect(() => {
+    if (recordForEdit) {
+      setValues({ ...recordForEdit });
+    }
+  }, [recordForEdit]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Form onSubmit={handleSubmit}>

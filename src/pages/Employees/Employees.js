@@ -1,6 +1,12 @@
 import { PageHeader } from '../../components';
-// import EmployeeForm from './EmployeeForm';
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import EmployeeForm from './EmployeeForm';
+import {
+  PeopleOutline as PeopleOutlineIcon,
+  Search,
+  Add as AddIcon,
+  EditOutlined as EditOutlinedIcon,
+  Close as CloseIcon,
+} from '@material-ui/icons';
 import {
   InputAdornment,
   makeStyles,
@@ -14,7 +20,7 @@ import useTable from '../../components/useTable';
 import * as EmployeeService from '../../services/employeeService';
 import { useState } from 'react';
 import Controls from '../../components/controls/Controls';
-import { Search } from '@material-ui/icons';
+import Popup from '../../components/Popup';
 
 const useStyles = makeStyles((theme) => ({
   pageContent: {
@@ -24,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
   searchinput: {
     width: '75%',
   },
+  newButton: {
+    position: 'absolute',
+    right: '10px',
+  },
 }));
 
 const headCells = [
@@ -31,12 +41,15 @@ const headCells = [
   { id: 'email', label: 'Email Address (Personal)' },
   { id: 'mobile', label: 'Mobile Number' },
   { id: 'department', label: 'Department', disableSorting: true },
+  { id: 'actions', label: 'Actions', disableSorting: true },
 ];
 
 const Employees = () => {
   const classes = useStyles();
+  const [recordForEdit, setRecordForEdit] = useState(null);
   const [records, setRecords] = useState(EmployeeService.getAllEmployees());
   const [filterFn, setFilterFn] = useState({ fn: (items) => items });
+  const [openPopup, setOpenPopup] = useState(false);
   const {
     TblContainer,
     TblHead,
@@ -136,6 +149,23 @@ const Employees = () => {
     });
   };
 
+  const addOrEdit = (employee, resetForm) => {
+    if (employee.id === 0) {
+      EmployeeService.insertEmployee(employee);
+    } else {
+      EmployeeService.updateEmployee(employee);
+    }
+    setRecordForEdit(null);
+    resetForm();
+    setOpenPopup(false);
+    setRecords(EmployeeService.getAllEmployees());
+  };
+
+  const openInPopup = (item) => {
+    setRecordForEdit(item);
+    setOpenPopup(true);
+  };
+
   return (
     <>
       <PageHeader
@@ -144,7 +174,6 @@ const Employees = () => {
         icon={<PeopleOutlineIcon fontSize='large' />}
       />
       <Paper className={classes.pageContent}>
-        {/* <EmployeeForm /> */}
         <Toolbar>
           <Controls.Input
             className={classes.searchinput}
@@ -158,6 +187,16 @@ const Employees = () => {
             }}
             onChange={handleSearch}
           />
+          <Controls.Button
+            text='Add new'
+            variant='outlined'
+            startIcon={<AddIcon />}
+            className={classes.newButton}
+            onClick={() => {
+              setOpenPopup(true);
+              setRecordForEdit(null);
+            }}
+          />
         </Toolbar>
         <TblContainer>
           <TblHead />
@@ -168,12 +207,33 @@ const Employees = () => {
                 <TableCell>{item.email}</TableCell>
                 <TableCell>{item.mobile}</TableCell>
                 <TableCell>{item.department}</TableCell>
+                <TableCell>
+                  <Controls.ActionButton color='primary'>
+                    <EditOutlinedIcon
+                      fontSize='small'
+                      onClick={() => {
+                        openInPopup(item);
+                      }}
+                    />
+                  </Controls.ActionButton>
+                  <Controls.ActionButton color='secondary'>
+                    <CloseIcon fontSize='small' />
+                  </Controls.ActionButton>
+                  <Controls.ActionButton></Controls.ActionButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </TblContainer>
         <TblPagination />
       </Paper>
+      <Popup
+        title='Employee Form'
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+      >
+        <EmployeeForm recordForEdit={recordForEdit} addOrEdit={addOrEdit} />
+      </Popup>
     </>
   );
 };
