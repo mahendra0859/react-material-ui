@@ -24,16 +24,22 @@ export const generateEmployeeId = () => {
 };
 
 export const insertEmployee = (data) => {
-  let employess = getAllEmployees();
+  let employees = getAllEmployees();
   data.id = generateEmployeeId();
-  employess.push(data);
-  localStorage.setItem(KEYS.employees, JSON.stringify(employess));
+  employees.push(data);
+  localStorage.setItem(KEYS.employees, JSON.stringify(employees));
 };
 export const updateEmployee = (data) => {
-  let employess = getAllEmployees();
-  let recordIndex = employess.findIndex((x) => x.id === data.id);
-  employess[recordIndex] = { ...data };
-  localStorage.setItem(KEYS.employees, JSON.stringify(employess));
+  let employees = getAllEmployees();
+  let recordIndex = employees.findIndex((x) => x.id === data.id);
+  employees[recordIndex] = { ...data };
+  localStorage.setItem(KEYS.employees, JSON.stringify(employees));
+};
+
+export const deleteEmployee = (id) => {
+  let employees = getAllEmployees();
+  employees = employees.filter((x) => x.id !== id);
+  localStorage.setItem(KEYS.employees, JSON.stringify(employees));
 };
 
 export const getAllEmployees = () => {
